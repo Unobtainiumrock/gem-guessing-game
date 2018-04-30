@@ -1,4 +1,4 @@
-# Word-Guess-Game
+# Gem-Guess-Game
 
 This is a basic gem game. The goal is to click gems, which represent randomly generated numbers, and have the sum of each gem equal the randomly generated number of 1-120.
 
