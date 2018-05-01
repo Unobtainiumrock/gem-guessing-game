@@ -2,7 +2,7 @@
 $(document).ready(function() {
 
   var gameData = {
-    goal: randomizer(120),
+    goal: randomizer(19,120),
     wins: 0,
     losses: 0,
     accumulator: 0
@@ -92,8 +92,8 @@ $(document).ready(function() {
    * @param  {number} upperBound: Is the limit for the highest randomly generate number
    * @returns {number}
    */
-  function randomizer(upperBound) {
-    return Math.floor(Math.random() * upperBound) + 1;
+  function randomizer(lowerBound,upperBound) {
+    return Math.floor(Math.random() * upperBound) + lowerBound;
   }
 
   
@@ -103,7 +103,7 @@ $(document).ready(function() {
   function randomizeGems() {
     $('.gem').each(function() {
       // Add the random 1-12 to each gem
-      $(this).attr('val',randomizer(12));
+      $(this).attr('val',randomizer(1,12));
     })
   }
   
@@ -112,7 +112,7 @@ $(document).ready(function() {
    * hidden gem data attribute values, and update the respective visual data shown to users.
    */
   function clearRound() {
-    gameData.goal = randomizer(120);
+    gameData.goal = randomizer(19,120);
     gameData.accumulator = 0;
     randomizeGems();
     $('#goal').text(gameData.goal);
