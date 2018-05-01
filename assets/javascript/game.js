@@ -12,15 +12,13 @@ $(document).ready(function() {
   // Sets up initial game data
   initializeGame();
 
-  // Iterate all gems and dynamically add click event listeners AND animations
+  // Iterate all gems and dynamically add click event listeners.
   $('.gem').each(function() {
-    var animationName = "animated rubberBands";
-    var animationEnd = "";
-    $(this).click(function() {
-      // Grab data attribute of clicked element
-      var gemAmt = $(this).attr('val');
 
-      updateAccumulator(gemAmt);
+    $(this).click(function() {
+
+      $(this).animateCss('rubberBand');
+      updateAccumulator($(this).attr('val'));
       checkAccumulatedAgainstTotal();
 
     });
