@@ -1,66 +1,112 @@
 
 $(document).ready(function() {
 
-  // Globals
-  var goal = randomizer(120);
-  var wins = 0;
-  var losses = 0;
-  var accumulator = 0;
+  var gameData = {
+    goal: randomizer(120),
+    wins: 0,
+    losses: 0,
+    accumulator: 0
+  }
 
 
-  // Populate visible data on page.
-  $('#goal').text(goal);
+  // Sets up initial game data
+  initializeGame();
 
-  // Populate hidden data on page
-  randomizeGems();
-  
-
-  // Iterate all gems and dynamically add event listeners
+  // Iterate all gems and dynamically add click event listeners AND animations
   $('.gem').each(function() {
-
+    var animationName = "animated rubberBands";
+    var animationEnd = "";
     $(this).click(function() {
+      // Grab data attribute of clicked element
       var gemAmt = $(this).attr('val');
-      // console.log(gemAmt);
-      accumulator+= parseInt(gemAmt);
-      $('#accumulator').text(accumulator);
 
-      // If you hit the goal
-      if(accumulator === goal) {
-        alert('Winner!');
-        wins++;
-        $('#wins').text(wins);
-        clearRound();
-        // if you go over the goal
-      } else if (accumulator > goal) {
-        alert('Loser!');
-        losses++;
-        $('#losses').text(losses);
-        clearRound();
-      }
+      updateAccumulator(gemAmt);
+      checkAccumulatedAgainstTotal();
 
     });
-
 
   })
 
 
+
+
+
+// Helper functions cannot be separated into another file because game.js and helper-functions.js
+// would be interdependent on eachother. In other words,
+// putting one file path before the other in the index.html doesn't work, because each requires the other
+
+  /**
+   * Populates the game with random numbers for gems and goal.
+   */
+  function initializeGame() {
+   $('#goal').text(gameData.goal);
+   randomizeGems();
+ }
+
+  /**
+   * Increments the game data's accumulator with the random gem amount, and updates
+   * page with the new accumulated value.
+   * 
+   * @param  {string} gemAmt: Is the randomized data attribute of the gem clicked.
+   */
+  function updateAccumulator(gemAmt) {
+    gameData.accumulator+= parseInt(gemAmt);
+    $('#accumulator').text(gameData.accumulator);
+  }
+
+  
+  /**
+   * Checks if the total points accumulated from gem clicks is equal to the
+   * randomly generated goal amount. If so, it will increment wins/losses based on outcome,
+   * and update it on the page to the user
+   */
+  function checkAccumulatedAgainstTotal() {
+    // If you hit the goal
+    if(gameData.accumulator === gameData.goal) {
+      gameData.wins++;
+      $('#wins').text(gameData.wins);
+      alert('Winner!');
+      clearRound();
+      // if you go over the goal
+    } else if (gameData.accumulator > gameData.goal) {
+      gameData.losses++;
+      $('#losses').text(gameData.losses);
+      alert('Loser!');
+      clearRound();
+    }
+  } 
+
+  /**
+   * Takes an upperbound number, and returns a randomly genereated # 1 - upperBound
+   * 
+   * @param  {number} upperBound: Is the limit for the highest randomly generate number
+   * @returns {number}
+   */
   function randomizer(upperBound) {
     return Math.floor(Math.random() * upperBound) + 1;
   }
 
+  
+  /**
+   * Iterates the gem class and updates their 'val' data attributes to a random number 1 - 12
+   */
   function randomizeGems() {
     $('.gem').each(function() {
       // Add the random 1-12 to each gem
       $(this).attr('val',randomizer(12));
     })
   }
-
+  
+  /**
+   * Called on each win/loss, this will reset the randomized goal, accumulated points,
+   * hidden gem data attribute values, and update the respective visual data shown to users.
+   */
   function clearRound() {
-    goal = randomizer(120);
-    accumulator = 0;
+    gameData.goal = randomizer(120);
+    gameData.accumulator = 0;
     randomizeGems();
-    $('#goal').text(goal);
-    $('#accumulator').text(accumulator);
+    $('#goal').text(gameData.goal);
+    $('#accumulator').text(gameData.accumulator);
   }
 
 })
