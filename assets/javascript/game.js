@@ -17,9 +17,14 @@ $(document).ready(function() {
 
     $(this).click(function() {
 
-      $(this).animateCss('rubberBand');
-      updateAccumulator($(this).attr('val'));
-      checkAccumulatedAgainstTotal();
+      // Prevents losing the binding of 'this' when passing the data attribute of the clicked gem.
+      var that = this;
+
+      $(this).animateCss('rubberBand',function() {
+
+        updateAccumulator($(that).attr('val'));
+        checkAccumulatedAgainstTotal();
+      });
 
     });
 

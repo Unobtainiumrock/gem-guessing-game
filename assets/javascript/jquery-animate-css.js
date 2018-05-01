@@ -1,7 +1,7 @@
 
 
-// The dude who extended this to JQuery is awesome.
-// super clean and readable
+// The dude who shows how to extended this to JQuery is awesome.
+// SUPER clean and readable
 $.fn.extend({
   animateCss: function(animationName, callback) {
     var animationEnd = (function(el) {
