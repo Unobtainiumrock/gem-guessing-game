@@ -20,6 +20,13 @@ $(document).ready(function() {
       // Prevents losing the binding of 'this' when passing the data attribute of the clicked gem.
       var that = this;
 
+      /**
+       * Uses a method extended to JQuery. This method takes a string to determine
+       * the type of animation to be performed, and an optional callback to
+       * be performed after each animation finishes running.
+       * In this case we want to provide a callback, so that
+       * the score only updates after each animation cycles.
+       */
       $(this).animateCss('rubberBand',function() {
 
         updateAccumulator($(that).attr('val'));
