@@ -75,13 +75,13 @@ $(document).ready(function() {
     if(gameData.accumulator === gameData.goal) {
       gameData.wins++;
       $('#wins').text(gameData.wins);
-      alert('Winner!');
+      $('#round-result').text('Winner!');
       clearRound();
       // if you go over the goal
     } else if (gameData.accumulator > gameData.goal) {
       gameData.losses++;
       $('#losses').text(gameData.losses);
-      alert('Loser!');
+      $('#round-result').text('Winner!');
       clearRound();
     }
   } 
