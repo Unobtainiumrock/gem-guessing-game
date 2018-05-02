@@ -47,3 +47,8 @@ body {
   font-size: 35px;
   font-weight: bolder;
 }
+
+.btn {
+  background: transparent;
+  border: none;
+}

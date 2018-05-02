@@ -8,15 +8,12 @@ $(document).ready(function() {
     accumulator: 0
   }
 
-
   // Sets up initial game data
   initializeGame();
 
-  // Iterate all gems and dynamically add click event listeners.
-  $('.gem').each(function() {
+    $('.btn').click(function() {
 
-    $(this).click(function() {
-
+      $(this).attr('disabled','true');
       // Prevents losing the binding of 'this' when passing the data attribute of the clicked gem.
       var that = this;
 
@@ -30,12 +27,15 @@ $(document).ready(function() {
       $(this).animateCss('rubberBand',function() {
 
         updateAccumulator($(that).attr('val'));
+
+        $(that).removeAttr('disabled');
+
         checkAccumulatedAgainstTotal();
       });
 
+
     });
 
-  })
 
 
 
@@ -85,7 +85,7 @@ $(document).ready(function() {
       clearRound();
     }
   } 
-  //test credentials
+
   /**
    * Takes an upperbound number, and returns a randomly genereated # 1 - upperBound
    * 
